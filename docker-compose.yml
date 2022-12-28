@@ -3,6 +3,9 @@ version: "3"
 services:
   app:
     image: drakona/php:8.1-symfony
+    container_name: app
+    stdin_open: true
+    tty: true
     depends_on:
       - db
     volumes:
@@ -10,6 +13,9 @@ services:
 
   nginx:
     image: drakona/nginx:8-symfony
+    container_name: nginx
+    stdin_open: true
+    tty: true
     depends_on:
       - app
     volumes:
@@ -27,13 +33,13 @@ services:
     ports:
       - "3306:3306"
 
-  mailhog:
-    image: mailhog/mailhog
-    logging:
-      driver: 'none'
-    ports:
-      - '8025:8025'
-      - '1025:1025'
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   logging:
+  #     driver: 'none'
+  #   ports:
+  #     - '8025:8025'
+  #     - '1025:1025'
 
 volumes:
   db-data: {}
